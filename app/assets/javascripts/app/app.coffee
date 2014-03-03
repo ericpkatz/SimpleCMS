@@ -1,4 +1,4 @@
-App = new Marionette.Application()
+@App = new Marionette.Application()
 
 App.addRegions
   main: '#main'
@@ -15,6 +15,8 @@ App.appRouter = new router()
 App.on 'start', ->
 
   Backbone.history.start {pushState: true} 
+
+  App.Controllers.Header.list()
 
 
 $ ->

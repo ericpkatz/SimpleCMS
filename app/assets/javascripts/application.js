@@ -16,3 +16,7 @@
 //= require lib/backbone
 //= require lib/backbone.marionette
 //= require app/app
+//= require hamlcoffee
+//= require_tree ./templates
+//= require_tree ./app/controllers 
+//= require_tree ./app/views
