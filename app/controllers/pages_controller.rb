@@ -4,7 +4,8 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = Page.all.select(:id, :title)
+    render json: @pages
   end
 
   # GET /pages/1
@@ -64,7 +65,11 @@ class PagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
-      @page = Page.find(params[:id])
+      if params[:id].to_i == 0
+        @page = Page.first
+      else
+        @page = Page.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

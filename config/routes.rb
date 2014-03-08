@@ -1,5 +1,7 @@
 SimpleCMS::Application.routes.draw do
   get "home/index"
+  get "pages/:id", to: 'home#index', constraints: { format: 'html' }
+
   resources :pages
 
   # The priority is based upon order of creation: first created -> highest priority.

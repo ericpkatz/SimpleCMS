@@ -1,0 +1,4 @@
+.jumbotron
+  %h2 =@title 
+  %div
+    =@body

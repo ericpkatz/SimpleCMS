@@ -39,6 +39,7 @@ group :doc do
 end
 
 group :test, :development do
+  gem 'thin'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'

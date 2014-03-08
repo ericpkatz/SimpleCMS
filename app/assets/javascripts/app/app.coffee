@@ -7,16 +7,26 @@ App.addRegions
 router = Backbone.Router.extend
   routes:
     '' : ->
-      alert 'TODO - need to load default page here'
+      App.vent.trigger 'PAGE:show', 0
+    'pages/:id': (id) ->
+      App.vent.trigger 'PAGE:show', id
       
-App.appRouter = new router()
+App.router = new router()
 
+App.getPages = (callback)-> 
+  promise = $.get '/pages.json'
+  promise.done (data) ->
+    callback(data)
+
+App.getPage = (id, callback) ->
+  promise = $.get "/pages/#{id}.json"
+  promise.done (data) ->
+    callback data
 
 App.on 'start', ->
 
   Backbone.history.start {pushState: true} 
-
-  App.Controllers.Header.list()
+  App.vent.trigger 'HEADER:list'
 
 
 $ ->

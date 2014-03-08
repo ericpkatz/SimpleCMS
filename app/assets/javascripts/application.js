@@ -18,5 +18,8 @@
 //= require app/app
 //= require hamlcoffee
 //= require_tree ./templates
+//= require_tree ./app/models
+//= require_tree ./app/collections
 //= require_tree ./app/controllers 
-//= require_tree ./app/views
+//= require_tree ./app/views/item_views
+//= require_tree ./app/views/collection_views
