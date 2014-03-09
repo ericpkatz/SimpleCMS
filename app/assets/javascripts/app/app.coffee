@@ -13,15 +13,22 @@ router = Backbone.Router.extend
       
 App.router = new router()
 
+App.cache = {}
+
 App.getPages = (callback)-> 
   promise = $.get '/pages.json'
   promise.done (data) ->
     callback(data)
 
 App.getPage = (id, callback) ->
-  promise = $.get "/pages/#{id}.json"
-  promise.done (data) ->
-    callback data
+  key = "Page-#{id}"
+  if App.cache[key]
+    callback App.cache[key] 
+  else
+    promise = $.get "/pages/#{id}.json"
+    promise.done (data) ->
+      App.cache[key] = data
+      callback data
 
 App.on 'start', ->
 
