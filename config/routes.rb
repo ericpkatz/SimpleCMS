@@ -1,6 +1,7 @@
 SimpleCMS::Application.routes.draw do
   get "home/index"
   get "pages/:id", to: 'home#index', constraints: { format: 'html' }
+  get "pages/:id/edit", to: 'home#index', constraints: { format: 'html' }
 
   resources :pages
 

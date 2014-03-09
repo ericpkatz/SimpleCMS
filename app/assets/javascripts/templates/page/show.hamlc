@@ -1,3 +1,6 @@
+.btn-group.pad-vertical
+  .btn.btn-default.edit Edit
+
 .jumbotron
   %h2 =@title 
   %div
