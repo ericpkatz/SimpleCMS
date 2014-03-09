@@ -12,3 +12,12 @@
  *= require_tree .
  *= require 'bootstrap'
  */
+
+#main {
+  margin-top: 15px;
+}
+
+
+.nav-tabs li a {
+  cursor: pointer !important
+}
