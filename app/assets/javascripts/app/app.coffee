@@ -12,6 +12,8 @@ router = Backbone.Router.extend
       App.vent.trigger 'PAGE:show', id
     'pages/:id/edit': (id) ->
       App.vent.trigger 'PAGE:edit', id
+    'pages/:id/new': (id) ->
+      App.vent.trigger 'PAGE:insert', id
       
 App.router = new router()
 
@@ -35,18 +37,32 @@ App.getPage = (id, callback) ->
 App.savePage = (page, callback) ->
   data = {page: page.toJSON()}
   data.authenticity_token = $("meta[name=csrf-token]").attr("content")
-  promise = $.ajax(
-    "/pages/#{data.page.id}.json",
-    {
-      method: 'PATCH',
-      data: data,
-      dataType: 'json'
-    }
-  )
-  promise.done (data) ->
-    key = "Page-#{data.id}"
-    App.cache[key] = data 
-    App.vent.trigger 'PAGE:show', data.id
+  if(page.isNew())
+    promise = $.ajax(
+      "/pages.json",
+      {
+        method: 'POST',
+        data: data,
+        dataType: 'json'
+      }
+    )
+    promise.done (data) ->
+      App.vent.trigger 'PAGE:change'
+      App.vent.trigger 'PAGE:show', data.id
+  else
+    promise = $.ajax(
+      "/pages/#{data.page.id}.json",
+      {
+        method: 'PATCH',
+        data: data,
+        dataType: 'json'
+      }
+    )
+    promise.done (data) ->
+      key = "Page-#{data.id}"
+      App.cache[key] = data 
+      App.vent.trigger 'PAGE:change'
+      App.vent.trigger 'PAGE:show', data.id
 
 App.on 'start', ->
 

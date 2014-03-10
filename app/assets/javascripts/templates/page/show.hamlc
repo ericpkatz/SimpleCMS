@@ -1,5 +1,6 @@
 .btn-group.pad-vertical
   .btn.btn-default.edit Edit
+  .btn.btn-default.insert Insert
 
 .jumbotron
   %h2 =@title 

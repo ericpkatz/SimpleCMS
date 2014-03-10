@@ -4,3 +4,5 @@ App.module 'Views', (views, app)->
     events:
       'click .edit': ->
         app.vent.trigger 'PAGE:edit', @model.get('id')
+      'click .insert': ->
+        app.vent.trigger 'PAGE:insert', @model.get('id')
