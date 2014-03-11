@@ -34,6 +34,21 @@ App.getPage = (id, callback) ->
       App.cache[key] = data
       callback data
 
+App.deletePage = (id) ->
+    data =
+      authenticity_token : $("meta[name=csrf-token]").attr("content")
+    promise = $.ajax(
+      "/pages/#{id}",
+      {
+        method: 'DELETE',
+        data: data,
+        dataType: 'json'
+      }
+    )
+    promise.done (data)->
+      App.vent.trigger 'PAGE:change'
+      App.vent.trigger 'PAGE:show', data.id
+
 App.savePage = (page, callback) ->
   data = {page: page.toJSON()}
   data.authenticity_token = $("meta[name=csrf-token]").attr("content")

@@ -1,6 +1,10 @@
 @App.module 'Controllers', (controllers, app, marionette, backbone, jquery, _) ->
-  deferred = $.Deferred()
-  promise = deferred.promise()
+  _deferred = null
+  deferred = ->
+    _deferred = _deferred || $.Deferred()
+
+  promise = ->
+    deferred().promise()
 
   API = 
     getPages: -> 
@@ -15,7 +19,7 @@
   controllers.Header = 
     list: -> API.getPages()
     highlightPage: (id)->
-      promise.done ->
+      promise().done ->
         API.highlightPage(id)
 
   app.vent.on 'HEADER:list', ->
@@ -25,4 +29,8 @@
     controllers.Header.highlightPage(id)
 
   app.vent.on 'HEADER:shown', () ->
-    deferred.resolve()
+    deferred().resolve()
+
+  app.vent.on 'PAGE:change', (model)->
+    _deferred = null
+    controllers.Header.list()

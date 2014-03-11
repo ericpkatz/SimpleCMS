@@ -16,6 +16,9 @@ App.module 'Controllers', (controllers, app) ->
     insertPage: (id)->
       app.main.show new app.Views.PageInsert
         model: new app.Models.Page
+    deletePage: (id)->
+      app.deletePage(id)
+
       
   app.vent.on 'PAGE:show', (id)->
     controllers.Page.show(id)
@@ -29,8 +32,9 @@ App.module 'Controllers', (controllers, app) ->
     controllers.Page.insertPage(id) 
     app.router.navigate "pages/#{id}/new"
 
+  app.vent.on 'PAGE:delete', (id)->
+    controllers.Page.deletePage(id) 
+
   app.vent.on 'PAGE:save', (model)->
     app.savePage(model)
 
-  app.vent.on 'PAGE:change', (model)->
-    console.log 'page change event'

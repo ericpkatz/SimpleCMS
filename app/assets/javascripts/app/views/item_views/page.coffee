@@ -6,3 +6,5 @@ App.module 'Views', (views, app)->
         app.vent.trigger 'PAGE:edit', @model.get('id')
       'click .insert': ->
         app.vent.trigger 'PAGE:insert', @model.get('id')
+      'click .delete': ->
+        app.vent.trigger 'PAGE:delete', @model.get('id')
