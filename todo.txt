@@ -1,0 +1,14 @@
+Cache pages.json
+Fix home page url
+Add login capability
+Add IsHomePage to model
+Style Footer
+Dry Up AJAX calls
+Folders for modules (header/footer/page)
+ViewModel for inserting a page - or app.CurrentPage?
+Hide Header and Footer
+Testing? - how to test various controllers?
+Move to postgres
+Deploy
+Add free semaphore account
+

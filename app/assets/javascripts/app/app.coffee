@@ -3,6 +3,7 @@
 App.addRegions
   main: '#main'
   header: '#header'
+  footer: '#footer'
 
 router = Backbone.Router.extend
   routes:
