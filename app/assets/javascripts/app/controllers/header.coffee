@@ -6,21 +6,14 @@
   promise = ->
     deferred().promise()
 
-  API = 
-    getPages: -> 
-      app.getPages API.showList 
-    showList: (pages)->
-      app.header.show new App.Views.Header
-        collection: new Backbone.Collection pages
-    highlightPage: (id)->
-      app.header.currentView.highlightPage(id)
-
-
   controllers.Header = 
-    list: -> API.getPages()
+    list: -> 
+      app.getPages (pages)-> 
+        app.header.show new App.Views.Header
+          collection: new app.Collections.Pages pages
     highlightPage: (id)->
       promise().done ->
-        API.highlightPage(id)
+        app.header.currentView.highlightPage(id)
 
   app.vent.on 'HEADER:list', ->
     controllers.Header.list()

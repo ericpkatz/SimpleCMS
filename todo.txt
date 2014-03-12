@@ -11,4 +11,9 @@ Testing? - how to test various controllers?
 Move to postgres
 Deploy
 Add free semaphore account
+Can we namespace the DataAccessLayer
 
+A Test for the Header
+#list - header should list pages
+  - can we mock api.getPages to return a list of pages?
+#highlight
