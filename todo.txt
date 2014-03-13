@@ -1,7 +1,8 @@
+Dry out the insert and the update
+Edit page - bookmark -selected not showing up.
 Cache pages.json
 Fix home page url
 Add login capability
-Add IsHomePage to model
 Style Footer
 Dry Up AJAX calls
 Folders for modules (header/footer/page)
@@ -12,8 +13,20 @@ Move to postgres
 Deploy
 Add free semaphore account
 Can we namespace the DataAccessLayer
+Error handling for bad page url's
 
 A Test for the Header
 #list - header should list pages
   - can we mock api.getPages to return a list of pages?
 #highlight
+
+A Test for the Page Controller
+#edit
+#save
+  - a new page
+    - with good data
+    - with bad data
+#delete
+
+
+Testing views vs. testing controllers?

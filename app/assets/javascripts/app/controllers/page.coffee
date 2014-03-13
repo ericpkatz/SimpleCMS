@@ -16,6 +16,7 @@ App.module 'Controllers', (controllers, app) ->
     insertPage: (id)->
       app.main.show new app.Views.PageInsert
         model: new app.Models.Page
+          parent_id: id
     deletePage: (id)->
       app.deletePage(id)
 

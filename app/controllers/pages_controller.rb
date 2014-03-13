@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all.select(:id, :title)
+    @pages = Page.all.select(:id, :title, :is_home_page)
     render json: @pages
   end
 
@@ -74,6 +74,6 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title, :body)
+      params.require(:page).permit(:title, :body, :is_home_page)
     end
 end

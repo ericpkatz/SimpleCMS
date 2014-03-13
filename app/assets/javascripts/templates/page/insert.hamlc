@@ -9,4 +9,8 @@
     .form-group
       %label{for: "page_body"} Body
       %input#page_body.form-control{placeholder: "Body", name: "page[body]", value: @body}
+    .checkbox
+      %label
+        %input#page_is_home_page{type: 'checkbox', name: "page[is_home_page]"}
+        Home Page
     %button.btn.btn-default{type: "submit"} Save
