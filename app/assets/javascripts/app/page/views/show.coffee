@@ -1,5 +1,5 @@
-App.module 'Views', (views, app)->
-  views.Page = Marionette.ItemView.extend
+App.module 'Page.Views', (views, app)->
+  views.Show = Marionette.ItemView.extend
     template: JST['page/show']
     events:
       'click .edit': ->

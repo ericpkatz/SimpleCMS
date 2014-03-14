@@ -1,5 +1,5 @@
-App.module 'Views', (views, app)->
-  views.PageInsert = Marionette.ItemView.extend
+App.module 'Page.Views', (views, app)->
+  views.Insert = Marionette.ItemView.extend
     template: JST['page/insert']
     ui:
       title: '#page_title'

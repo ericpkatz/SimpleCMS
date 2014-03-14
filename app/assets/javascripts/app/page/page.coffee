@@ -3,7 +3,7 @@ App.module 'Controllers', (controllers, app) ->
     getPage: (id)->
       app.getPage(id, API.showPage)
     showPage: (data)->
-      app.main.show new app.Views.Page
+      app.main.show new app.Page.Views.Show
         model: new app.Models.Page data 
 
   controllers.Page =
@@ -11,10 +11,10 @@ App.module 'Controllers', (controllers, app) ->
       API.getPage id
     editPage: (id)->
       app.getPage id, (data)->
-        app.main.show new app.Views.PageEdit
+        app.main.show new app.Page.Views.Edit
           model: new app.Models.Page data
     insertPage: (id)->
-      app.main.show new app.Views.PageInsert
+      app.main.show new app.Page.Views.Insert
         model: new app.Models.Page
           parent_id: id
     deletePage: (id)->

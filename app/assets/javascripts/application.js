@@ -20,6 +20,6 @@
 //= require_tree ./templates
 //= require_tree ./app/models
 //= require_tree ./app/collections
-//= require_tree ./app/controllers 
-//= require_tree ./app/views/item_views
-//= require_tree ./app/views/collection_views
+//= require_tree ./app/header
+//= require_tree ./app/footer
+//= require_tree ./app/page

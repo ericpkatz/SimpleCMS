@@ -1,5 +1,5 @@
-App.module 'Views', (views, app)->
-  views.PageEdit = Marionette.ItemView.extend
+App.module 'Page.Views', (views, app)->
+  views.Edit = Marionette.ItemView.extend
     template: JST['page/edit']
     ui:
       title: '#page_title'

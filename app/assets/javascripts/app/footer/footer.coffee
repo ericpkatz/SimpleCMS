@@ -10,7 +10,7 @@
     getPages: -> 
       app.getPages API.showList 
     showList: (pages)->
-      app.footer.show new App.Views.Footer
+      app.footer.show new app.Footer.Views.List
         collection: new Backbone.Collection pages
     highlightPage: (id)->
       app.footer.currentView.highlightPage(id)
