@@ -28,6 +28,9 @@
   app.vent.on 'PAGE:show', (id) ->
     controllers.Footer.highlightPage(id)
 
+  app.vent.on 'NAV:show', (id) ->
+    controllers.Footer.highlightPage(id)
+
   app.vent.on 'FOOTER:shown', () ->
     deferred().resolve()
 

@@ -21,6 +21,9 @@
   app.vent.on 'PAGE:show', (id) ->
     controllers.Header.highlightPage(id)
 
+  app.vent.on 'NAV:show', (id) ->
+    controllers.Header.highlightPage(id)
+
   app.vent.on 'HEADER:shown', () ->
     deferred().resolve()
 

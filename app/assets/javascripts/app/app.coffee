@@ -12,6 +12,7 @@ router = Backbone.Router.extend
     'pages/:id': (id) ->
       App.vent.trigger 'PAGE:show', id
     'pages/:id/edit': (id) ->
+      App.vent.trigger 'NAV:show', id
       App.vent.trigger 'PAGE:edit', id
     'pages/:id/new': (id) ->
       App.vent.trigger 'PAGE:insert', id
@@ -25,8 +26,10 @@ App.getPages = (callback)->
   promise.done (data) ->
     callback(data)
 
-App.getPage = (id, callback) ->
+App.getPage = (id, callback, bypass_cache = false) ->
   key = "Page-#{id}"
+  if bypass_cache
+    App.cache[key] = null
   if App.cache[key]
     callback App.cache[key] 
   else
