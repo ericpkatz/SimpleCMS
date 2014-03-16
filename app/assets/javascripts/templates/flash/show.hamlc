@@ -1,0 +1,3 @@
+.alert.alert-warning.alert-dismissable.pad-vertical
+  %button.close{"aria-hidden" => "true", data : {dismiss:"alert"}, type: "button"} ×
+  = @notice

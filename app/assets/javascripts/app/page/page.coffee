@@ -27,12 +27,14 @@ App.module 'Controllers', (controllers, app) ->
           parent_id: id
 
     delete: (id)->
-      app.deletePage(id)
+      app.deletePage id, (data) ->
+        App.vent.trigger 'PAGE:change'
+        App.vent.trigger 'PAGE:show', data.id
+        App.vent.trigger 'FLASH:show', 'Page has been deleted'
 
       
   app.vent.on 'PAGE:show', (id)->
     controllers.Page.show(id)
-    app.router.navigate "pages/#{id}"
 
   app.vent.on 'PAGE:edit', (id)->
     controllers.Page.edit(id) 
@@ -46,5 +48,11 @@ App.module 'Controllers', (controllers, app) ->
     controllers.Page.delete(id) 
 
   app.vent.on 'PAGE:save', (model)->
-    app.savePage(model)
+    app.savePage model, (data) ->
+      key = "Page-#{data.id}"
+      App.cache[key] = data
+      App.vent.trigger 'PAGE:change'
+      App.vent.trigger 'PAGE:show', data.id
+      App.vent.trigger 'FLASH:show', 'Page has been saved'
+
 

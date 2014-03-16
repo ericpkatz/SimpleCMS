@@ -4,11 +4,13 @@ App.addRegions
   main: '#main'
   header: '#header'
   footer: '#footer'
+  flash: '#flash'
 
 router = Backbone.Router.extend
   routes:
     '' : ->
-      App.vent.trigger 'PAGE:show', 0
+      App.getPages (data)->
+        App.vent.trigger 'PAGE:show', _.find(data, (page)->page.is_home_page).id
     'pages/:id': (id) ->
       App.vent.trigger 'PAGE:show', id
     'pages/:id/edit': (id) ->
@@ -38,7 +40,7 @@ App.getPage = (id, callback, bypass_cache = false) ->
       App.cache[key] = data
       callback data
 
-App.deletePage = (id) ->
+App.deletePage = (id, callback) ->
     data =
       authenticity_token : $("meta[name=csrf-token]").attr("content")
     promise = $.ajax(
@@ -50,44 +52,27 @@ App.deletePage = (id) ->
       }
     )
     promise.done (data)->
-      App.vent.trigger 'PAGE:change'
-      App.vent.trigger 'PAGE:show', data.id
+      callback data
 
 App.savePage = (page, callback) ->
   data = {page: page.toJSON()}
   data.authenticity_token = $("meta[name=csrf-token]").attr("content")
-  if(page.isNew())
-    promise = $.ajax(
-      "/pages.json",
-      {
-        method: 'POST',
-        data: data,
-        dataType: 'json'
-      }
-    )
-    promise.done (data) ->
-      App.vent.trigger 'PAGE:change'
-      App.vent.trigger 'PAGE:show', data.id
-  else
-    promise = $.ajax(
-      "/pages/#{data.page.id}.json",
-      {
-        method: 'PATCH',
-        data: data,
-        dataType: 'json'
-      }
-    )
-    promise.done (data) ->
-      key = "Page-#{data.id}"
-      App.cache[key] = data 
-      App.vent.trigger 'PAGE:change'
-      App.vent.trigger 'PAGE:show', data.id
+
+  promise = $.ajax(
+    if page.isNew() then "/pages.json" else "/pages/#{data.page.id}.json"
+    {
+      method: if page.isNew() then "POST" else "PATCH" 
+      data: data,
+      dataType: 'json'
+    }
+  )
+  promise.done (data) ->
+    callback data
 
 App.on 'start', ->
 
   Backbone.history.start {pushState: true} 
   App.vent.trigger 'HEADER:list'
-
 
 $ ->
   App.start()

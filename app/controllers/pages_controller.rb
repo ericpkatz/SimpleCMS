@@ -65,11 +65,7 @@ class PagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
-      if params[:id].to_i == 0
-        @page = Page.first
-      else
-        @page = Page.find(params[:id])
-      end
+      @page = Page.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
