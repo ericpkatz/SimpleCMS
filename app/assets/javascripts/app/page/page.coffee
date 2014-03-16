@@ -49,8 +49,7 @@ App.module 'Controllers', (controllers, app) ->
 
   app.vent.on 'PAGE:save', (model)->
     app.savePage model, (data) ->
-      key = "Page-#{data.id}"
-      App.cache[key] = data
+      App.vent.trigger 'CACHE:set', 'Page', data.id, data
       App.vent.trigger 'PAGE:change'
       App.vent.trigger 'PAGE:show', data.id
       App.vent.trigger 'FLASH:show', 'Page has been saved'

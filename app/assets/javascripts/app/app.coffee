@@ -1,10 +1,10 @@
 @App = new Marionette.Application()
 
 App.addRegions
-  main: '#main'
+  main:   '#main'
   header: '#header'
   footer: '#footer'
-  flash: '#flash'
+  flash:  '#flash'
 
 router = Backbone.Router.extend
   routes:
@@ -21,23 +21,23 @@ router = Backbone.Router.extend
       
 App.router = new router()
 
-App.cache = {}
-
+# DAL for page objects
 App.getPages = (callback)-> 
+  # if App.Cache.api.get('Pages', 0)
+    # callback App.Cache.api.get('Pages', 0)
   promise = $.get '/pages.json'
   promise.done (data) ->
+    # App.Cache.api.set('Pages', 0, data)
+    # console.log App.Cache.api.getStore()
     callback(data)
 
 App.getPage = (id, callback, bypass_cache = false) ->
-  key = "Page-#{id}"
-  if bypass_cache
-    App.cache[key] = null
-  if App.cache[key]
-    callback App.cache[key] 
+  if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
+    callback App.Cache.api.get('Page', id) 
   else
     promise = $.get "/pages/#{id}.json"
     promise.done (data) ->
-      App.cache[key] = data
+      App.Cache.api.set('Page', id,data)
       callback data
 
 App.deletePage = (id, callback) ->

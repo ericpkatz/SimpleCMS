@@ -1,17 +1,11 @@
-Finish flash ...
 Strategy for clearing cache when a callback updates another recordO
   need to pass back to the browser that a record has changed
   clear the cache for deleted record
 
-Messaging
 Use layout template for header in order to do login
-Dry out the insert and the update
 Cache pages.json
-Fix home page url
 Add login capability
 Style Footer
-Dry Up AJAX calls
-Folders for modules (header/footer/page)
 ViewModel for inserting a page - or app.CurrentPage?
 Hide Header and Footer
 Testing? - how to test various controllers?
