@@ -9,7 +9,7 @@
 
   controllers.Footer = 
     list: -> 
-      app.getPages (pages)-> 
+      app.getPages().done (pages)-> 
         app.footer.show new app.Footer.Views.List
           collection: new Backbone.Collection pages
     highlightPage: (id)->

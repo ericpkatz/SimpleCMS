@@ -8,7 +8,7 @@
 
   controllers.Header = 
     list: -> 
-      app.getPages (pages)-> 
+      app.getPages().done (pages) -> 
         app.header.show new app.Header.Views.List
           collection: new app.Collections.Pages pages
     highlightPage: (id)->

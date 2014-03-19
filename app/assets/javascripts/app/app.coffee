@@ -6,10 +6,13 @@ App.addRegions
   footer: '#footer'
   flash:  '#flash'
 
+# '' - should grab a promise- if that promise is just created, then it should make the get request-
+# the get request should resolve the deferred- this way it should only be called once.
 router = Backbone.Router.extend
   routes:
     '' : ->
-      App.getPages (data)->
+      _promise().done (data)->
+      # App.getPages (data)->
         App.vent.trigger 'PAGE:show', _.find(data, (page)->page.is_home_page).id
     'pages/:id': (id) ->
       App.vent.trigger 'PAGE:show', id
@@ -21,22 +24,32 @@ router = Backbone.Router.extend
       
 App.router = new router()
 
+_deferred = null
+
+deferred = ()->
+  if !_deferred
+    _deferred = $.Deferred (d)->
+      App.DAL.Page.get().done (data)->
+        d.resolve data
+  _deferred
+    
+
+_promise = ()->
+  deferred().promise()
+
 # DAL for page objects
-App.getPages = (callback)-> 
-  # if App.Cache.api.get('Pages', 0)
-    # callback App.Cache.api.get('Pages', 0)
-  promise = $.get '/pages.json'
-  promise.done (data) ->
-    # App.Cache.api.set('Pages', 0, data)
-    # console.log App.Cache.api.getStore()
-    callback(data)
+
+App.vent.on 'PAGE:change', ()->
+    _deferred = null
+
+App.getPages = ()-> 
+  _promise()
 
 App.getPage = (id, callback, bypass_cache = false) ->
   if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
     callback App.Cache.api.get('Page', id) 
   else
-    promise = $.get "/pages/#{id}.json"
-    promise.done (data) ->
+    App.DAL.Page.getById(id).done (data) ->
       App.Cache.api.set('Page', id,data)
       callback data
 
