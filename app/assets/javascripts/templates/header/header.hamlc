@@ -1,7 +1,5 @@
 .navbar.navbar-default
   .container-fluid
-    .navbar-header
-      %a.navbar-brand{href: "/pages/#{@model.id}"} = @model.title
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-    #login-area
+    #nav
+    -# != JST["header/nav"](this)
+    %span#auth

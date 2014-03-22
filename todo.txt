@@ -1,3 +1,8 @@
+Set up header with the following regions
+  brand
+  links
+  auth
+
 Strategy for clearing cache when a callback updates another recordO
   need to pass back to the browser that a record has changed
   clear the cache for deleted record

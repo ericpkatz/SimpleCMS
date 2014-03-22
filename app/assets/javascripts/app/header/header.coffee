@@ -9,9 +9,10 @@
   controllers.Header = 
     list: -> 
       app.getPages().done (pages) -> 
-        app.header.show new app.Header.Views.List
-          collection: new app.Collections.Pages pages[1..-1]
-          model: new app.Models.Page pages[0]
+        app.header.show new app.Header.Layouts.Nav
+          navModel:
+            collection: new app.Collections.Pages pages[1..-1]
+            model: new app.Models.Page pages[0]
     highlightPage: (id)->
       promise().done ->
         app.header.currentView.highlightPage(id)

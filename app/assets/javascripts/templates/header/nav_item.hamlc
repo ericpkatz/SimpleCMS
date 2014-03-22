@@ -1,0 +1,3 @@
+%a{"data-id": @id, href: "/pages/#{@id}"}
+  = @title
+

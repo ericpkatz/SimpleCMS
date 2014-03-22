@@ -1,6 +1,6 @@
 App.module "Header.Views", (views, app) ->
   views.ListItem = Backbone.Marionette.ItemView.extend
-    template: JST['header/header_item']
+    template: JST['header/nav_item']
     tagName: 'li'
     events:
       'click a': ->
@@ -11,7 +11,7 @@ App.module "Header.Views", (views, app) ->
     initialize: (options)->
     itemViewContainer: 'ul'
     itemView: views.ListItem,
-    template: JST['header/header']
+    template: JST['header/nav']
     onShow: ->
       app.vent.trigger 'HEADER:shown'
     highlightPage: (id) ->
