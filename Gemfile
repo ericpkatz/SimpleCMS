@@ -12,6 +12,8 @@ gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'js-routes'
 
+gem 'devise'
+
 gem 'haml_coffee_assets'
 gem 'execjs'
 
