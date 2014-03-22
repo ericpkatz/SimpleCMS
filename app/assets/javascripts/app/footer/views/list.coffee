@@ -1,5 +1,5 @@
 App.module "Footer.Views", (views, app) ->
-  views.ListItem = Backbone.Marionette.CompositeView.extend
+  views.ListItem = Backbone.Marionette.ItemView.extend
     template: JST['footer/footer_item']
     tagName: 'li'
     events:

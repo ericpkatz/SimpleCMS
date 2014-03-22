@@ -10,7 +10,8 @@
     list: -> 
       app.getPages().done (pages) -> 
         app.header.show new app.Header.Views.List
-          collection: new app.Collections.Pages pages
+          collection: new app.Collections.Pages pages[1..-1]
+          model: new app.Models.Page pages[0]
     highlightPage: (id)->
       promise().done ->
         app.header.currentView.highlightPage(id)
