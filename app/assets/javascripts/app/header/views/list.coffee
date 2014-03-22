@@ -17,9 +17,3 @@ App.module "Header.Views", (views, app) ->
     highlightPage: (id) ->
       @$el.find('li').removeClass('active')
       @$el.find("li a[data-id=#{id}]").parent().addClass('active')
-    serializeData: ()->
-      model: @model.toJSON()
-    events:
-      'click a.navbar-brand': ->
-        app.vent.trigger 'PAGE:show', @model.get('id')
-        false

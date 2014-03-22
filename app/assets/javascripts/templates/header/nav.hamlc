@@ -1,4 +1,1 @@
-.navbar-header
-  %a.navbar-brand{href: "/pages/#{@model.id}"} = @model.title
-.collapse.navbar-collapse
-  %ul.nav.navbar-nav
+%ul.nav.navbar-nav
