@@ -2,10 +2,11 @@ App.module 'Controllers', (controllers, app) ->
 
   controllers.Page =
     show: (id)->
-      app.getPage id, (data)->
+      app.getPage id, (data, admin = false)->
         page = new app.Models.Page data
+        page.set('admin', admin)
         app.main.show new app.Page.Views.Show
-          model: page 
+          model: page
 
         if page.get('is_home_page')
           app.router.navigate '/'

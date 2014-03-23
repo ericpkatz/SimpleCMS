@@ -1,7 +1,8 @@
-.btn-group.pad-vertical
-  .btn.btn-default.edit Edit
-  .btn.btn-default.insert Insert
-  .btn.btn-default.delete Delete
+-if @admin
+  .btn-group.pad-vertical
+    .btn.btn-default.edit Edit
+    .btn.btn-default.insert Insert
+    .btn.btn-default.delete Delete
 
 .jumbotron
   %h2 =@title 

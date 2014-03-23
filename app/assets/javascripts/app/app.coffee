@@ -55,12 +55,15 @@ App.getPages = ()->
   _promisePages()
 
 App.getPage = (id, callback, bypass_cache = false) ->
-  if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
-    callback App.Cache.api.get('Page', id) 
-  else
-    App.DAL.Page.getById(id).done (data) ->
-      App.Cache.api.set('Page', id,data)
-      callback data
+  _promiseAuth().done (data)->
+    user = new App.Models.User data if data
+    admin = user && user.get('role') == 'admin'
+    if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
+      callback App.Cache.api.get('Page', id), admin
+    else
+      App.DAL.Page.getById(id).done (data) ->
+        App.Cache.api.set('Page', id,data)
+        callback data, admin
 
 App.deletePage = (id, callback) ->
     data =
