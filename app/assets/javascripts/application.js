@@ -25,3 +25,4 @@
 //= require_tree ./app/page
 //= require_tree ./app/flash
 //= require_tree ./app/cache
+//= require_tree ./app/auth

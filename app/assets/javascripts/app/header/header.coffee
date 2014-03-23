@@ -7,18 +7,20 @@
     deferred().promise()
 
   controllers.Header = 
-    list: -> 
+    list: (user)-> 
       app.getPages().done (pages) -> 
         app.header.show new app.Header.Layouts.Nav
           navModel:
             collection: new app.Collections.Pages pages[1..-1]
             model: new app.Models.Page pages[0]
+          authModel:
+            model: user
     highlightPage: (id)->
       promise().done ->
         app.header.currentView.highlightPage(id)
 
-  app.vent.on 'HEADER:list', ->
-    controllers.Header.list()
+  app.vent.on 'HEADER:list', (user) ->
+    controllers.Header.list user
 
   app.vent.on 'PAGE:show', (id) ->
     controllers.Header.highlightPage(id)

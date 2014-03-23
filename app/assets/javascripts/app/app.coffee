@@ -6,13 +6,10 @@ App.addRegions
   footer: '#footer'
   flash:  '#flash'
 
-# '' - should grab a promise- if that promise is just created, then it should make the get request-
-# the get request should resolve the deferred- this way it should only be called once.
 router = Backbone.Router.extend
   routes:
     '' : ->
-      _promise().done (data)->
-      # App.getPages (data)->
+      _promisePages().done (data)->
         App.vent.trigger 'PAGE:show', _.find(data, (page)->page.is_home_page).id
     'pages/:id': (id) ->
       App.vent.trigger 'PAGE:show', id
@@ -24,26 +21,38 @@ router = Backbone.Router.extend
       
 App.router = new router()
 
-_deferred = null
+_deferredPages = null
 
-deferred = ()->
-  if !_deferred
-    _deferred = $.Deferred (d)->
+deferredPages = ()->
+  if !_deferredPages
+    _deferredPages = $.Deferred (d)->
       App.DAL.Page.get().done (data)->
         d.resolve data
-  _deferred
+  _deferredPages
     
 
-_promise = ()->
-  deferred().promise()
+_promisePages = ()->
+  deferredPages().promise()
+
+_deferredAuth = null
+
+deferredAuth = ()->
+  if !_deferredAuth
+    _deferredAuth = $.Deferred (d)->
+      App.DAL.Auth.get().done (data)->
+        d.resolve data
+  _deferredAuth
+
+_promiseAuth = ()->
+  deferredAuth().promise()
 
 # DAL for page objects
 
 App.vent.on 'PAGE:change', ()->
-    _deferred = null
+    _deferredPages = null
 
 App.getPages = ()-> 
-  _promise()
+  _promisePages()
 
 App.getPage = (id, callback, bypass_cache = false) ->
   if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
@@ -85,8 +94,9 @@ App.savePage = (page, callback) ->
 App.on 'start', ->
 
   Backbone.history.start {pushState: true} 
-  App.vent.trigger 'HEADER:list'
+  _promiseAuth().done (data)->
+    user = new App.Models.User data if data
+    App.vent.trigger 'HEADER:list', user
 
 $ ->
   App.start()
-

@@ -1,4 +1,10 @@
-%form.navbar-form.navbar-right{role: "search"}
-  .form-group
-    %input.form-control{placeholder: "Search", type: "text"}
-  %button.btn.btn-default{type: "submit"} Submit
+%p.navbar-right.navbar-text
+  - if @user
+    %form.navbar-form.navbar-right{action: '/users/sign_out', method: 'POST'}
+      %input{type:'hidden',name: 'authenticity_token', value: $("meta[name=csrf-token]").attr("content") }
+
+      %input{type: 'hidden', name:'_method', value:'delete'}
+      %button.btn.btn-default{type: "submit"} 
+        =@user.email 
+  - else
+    %a.navbar-link{href: '/users/sign_in'} Login

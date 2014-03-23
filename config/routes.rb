@@ -1,4 +1,5 @@
 SimpleCMS::Application.routes.draw do
+  get "auth/index"
   devise_for :users
   get "home/index"
   get "pages/:id", to: 'home#index', constraints: { format: 'html' }

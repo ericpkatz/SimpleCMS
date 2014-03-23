@@ -5,3 +5,7 @@ App.module 'DAL', (dal, app) ->
     getById: (id)->
       ($.get "/pages/#{id}.json").promise()
 
+  dal.Auth = 
+    get: ()->
+      $.get('/auth/index').promise()
+
