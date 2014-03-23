@@ -1,10 +1,10 @@
-%p.navbar-right.navbar-text
-  - if @user
-    %form.navbar-form.navbar-right{action: '/users/sign_out', method: 'POST'}
-      %input{type:'hidden',name: 'authenticity_token', value: $("meta[name=csrf-token]").attr("content") }
+- if @user
+  %form.navbar-form.navbar-right{action: '/users/sign_out', method: 'POST'}
+    %input{type:'hidden',name: 'authenticity_token', value: $("meta[name=csrf-token]").attr("content") }
 
-      %input{type: 'hidden', name:'_method', value:'delete'}
-      %button.btn.btn-default{type: "submit"} 
-        =@user.email 
-  - else
+    %input{type: 'hidden', name:'_method', value:'delete'}
+    %button.btn.btn-default{type: "submit"} 
+      =@user.email 
+- else
+  %p.navbar-right.navbar-text
     %a.navbar-link{href: '/users/sign_in'} Login
