@@ -29,7 +29,6 @@ deferredPages = ()->
       App.DAL.Page.get().done (data)->
         d.resolve data
   _deferredPages
-    
 
 _promisePages = ()->
   deferredPages().promise()
@@ -66,33 +65,10 @@ App.getPage = (id, callback, bypass_cache = false) ->
         callback data, admin
 
 App.deletePage = (id, callback) ->
-    data =
-      authenticity_token : $("meta[name=csrf-token]").attr("content")
-    promise = $.ajax(
-      "/pages/#{id}",
-      {
-        method: 'DELETE',
-        data: data,
-        dataType: 'json'
-      }
-    )
-    promise.done (data)->
-      callback data
+  App.DAL.Page.delete id, callback
 
 App.savePage = (page, callback) ->
-  data = {page: page.toJSON()}
-  data.authenticity_token = $("meta[name=csrf-token]").attr("content")
-
-  promise = $.ajax(
-    if page.isNew() then "/pages.json" else "/pages/#{data.page.id}.json"
-    {
-      method: if page.isNew() then "POST" else "PATCH" 
-      data: data,
-      dataType: 'json'
-    }
-  )
-  promise.done (data) ->
-    callback data
+  App.DAL.Page.save page, callback
 
 App.on 'start', ->
 

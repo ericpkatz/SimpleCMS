@@ -13,5 +13,5 @@ App.module 'Cache', (cache, app)->
     get: (prefix, id)->
       @store[@key prefix, id]
 
-  cache.on 'CACHE:set', (prefix, id, value)->
+  app.vent.on 'CACHE:set', (prefix, id, value)->
     cache.api.set(prefix, id, value)

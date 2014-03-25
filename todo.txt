@@ -1,5 +1,5 @@
+BUG - editing a page- the new content is not shown in main - cache issue
 Clean up auth.hamlc - figure out strategy for authenticity_token
-Add cancan ability
 Think about how to go about testing the application
 
 Strategy for clearing cache when a callback updates another recordO
