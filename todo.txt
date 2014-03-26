@@ -1,6 +1,3 @@
-Move router code out of page class-
-  fire an event - let router handle it's own code
-
 Clean up auth.hamlc - figure out strategy for authenticity_token
 Think about how to go about testing the application
 
@@ -8,15 +5,10 @@ Strategy for clearing cache when a callback updates another recordO
   need to pass back to the browser that a record has changed
   clear the cache for deleted record
 
-Use layout template for header in order to do login
-Cache pages.json
-Add login capability
 Style Footer
 ViewModel for inserting a page - or app.CurrentPage?
 Hide Header and Footer
 Testing? - how to test various controllers?
-Move to postgres
-Deploy
 Add free semaphore account
 Can we namespace the DataAccessLayer
 Error handling for bad page url's
