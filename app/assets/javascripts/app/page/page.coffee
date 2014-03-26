@@ -9,9 +9,9 @@ App.module 'Controllers', (controllers, app) ->
           model: page
 
         if page.get('is_home_page')
-          app.router.navigate '/'
+          app.vent.trigger 'ROUTER:navigate', '/'
         else
-          app.router.navigate "pages/#{page.get('id')}"
+          app.vent.trigger 'ROUTER:navigate', "pages/#{page.get('id')}"
 
     edit: (id)->
       app.getPage( 
@@ -39,11 +39,11 @@ App.module 'Controllers', (controllers, app) ->
 
   app.vent.on 'PAGE:edit', (id)->
     controllers.Page.edit(id) 
-    app.router.navigate "pages/#{id}/edit"
+    app.vent.trigger 'ROUTER:navigate', "pages/#{id}/edit"
 
   app.vent.on 'PAGE:insert', (id)->
     controllers.Page.insert(id) 
-    app.router.navigate "pages/#{id}/new"
+    app.vent.trigger 'ROUTER:navigate',"pages/#{id}/new"
 
   app.vent.on 'PAGE:delete', (id)->
     controllers.Page.delete(id) 

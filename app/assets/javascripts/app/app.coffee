@@ -6,20 +6,7 @@ App.addRegions
   footer: '#footer'
   flash:  '#flash'
 
-router = Backbone.Router.extend
-  routes:
-    '' : ->
-      _promisePages().done (data)->
-        App.vent.trigger 'PAGE:show', _.find(data, (page)->page.is_home_page).id
-    'pages/:id': (id) ->
-      App.vent.trigger 'PAGE:show', id
-    'pages/:id/edit': (id) ->
-      App.vent.trigger 'NAV:show', id
-      App.vent.trigger 'PAGE:edit', id
-    'pages/:id/new': (id) ->
-      App.vent.trigger 'PAGE:insert', id
       
-App.router = new router()
 
 _deferredPages = null
 
@@ -70,8 +57,13 @@ App.deletePage = (id, callback) ->
 App.savePage = (page, callback) ->
   App.DAL.Page.save page, callback
 
+App.vent.on 'ROUTER:navigate', (route)->
+  App.router.navigate route
+
 App.on 'start', ->
 
+  App.router = new App.Routers.AppRouter
+    promisePages: _promisePages 
   Backbone.history.start {pushState: true} 
   _promiseAuth().done (data)->
     user = new App.Models.User data if data

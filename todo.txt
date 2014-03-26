@@ -1,4 +1,6 @@
-BUG - editing a page- the new content is not shown in main - cache issue
+Move router code out of page class-
+  fire an event - let router handle it's own code
+
 Clean up auth.hamlc - figure out strategy for authenticity_token
 Think about how to go about testing the application
 
