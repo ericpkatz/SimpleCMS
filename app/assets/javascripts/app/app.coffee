@@ -69,5 +69,3 @@ App.on 'start', ->
     user = new App.Models.User data if data
     App.vent.trigger 'HEADER:list', user
 
-$ ->
-  App.start()
