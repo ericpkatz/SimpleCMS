@@ -1,3 +1,4 @@
+Bug - admin not set after inserting a new page
 Clean up auth.hamlc - figure out strategy for authenticity_token
 Think about how to go about testing the application
 
