@@ -60,6 +60,11 @@ App.savePage = (page, callback) ->
 App.vent.on 'ROUTER:navigate', (route)->
   App.router.navigate route
 
+App.vent.on 'PAGE:change', ()->
+  _promiseAuth().done (data)->
+    user = new App.Models.User data if data
+    App.vent.trigger 'HEADER:list', user
+
 App.on 'start', ->
 
   App.router = new App.Routers.AppRouter

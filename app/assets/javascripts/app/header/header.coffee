@@ -31,6 +31,3 @@
   app.vent.on 'HEADER:shown', () ->
     deferred().resolve()
 
-  app.vent.on 'PAGE:change', (model)->
-    _deferred = null
-    controllers.Header.list()
