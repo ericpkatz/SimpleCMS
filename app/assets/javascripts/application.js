@@ -21,6 +21,7 @@
 //= require_tree ./templates
 //= require_tree ./app/models
 //= require_tree ./app/collections
+//= require_tree ./app/dal
 //= require_tree ./app/header
 //= require_tree ./app/footer
 //= require_tree ./app/page
