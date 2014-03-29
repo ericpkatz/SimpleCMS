@@ -24,6 +24,9 @@
   app.vent.on 'PAGE:show', (model) ->
     controllers.Header.highlightPage(model.id)
 
+  app.vent.on 'PAGE:change', () ->
+    _deferred = null
+
   app.vent.on 'NAV:show', (id) ->
     controllers.Header.highlightPage(id)
 

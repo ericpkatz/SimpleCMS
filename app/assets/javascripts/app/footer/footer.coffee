@@ -29,4 +29,3 @@
 
   app.vent.on 'PAGE:change', (model)->
     _deferred = null
-    controllers.Footer.list()
