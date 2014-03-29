@@ -13,12 +13,15 @@
  *= require 'bootstrap'
  */
 
+body {
+  padding-bottom: 70px;
+}
 #main {
   margin-top: 15px;
 }
 
 
-.nav-tabs li a {
+a {
   cursor: pointer !important
 }
 

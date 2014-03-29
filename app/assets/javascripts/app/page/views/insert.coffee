@@ -13,4 +13,4 @@ App.module 'Page.Views', (views, app)->
         app.vent.trigger 'PAGE:save', @model
         false
       'click .cancel': ->
-        app.vent.trigger 'PAGE:show', @model.get('parent_id')
+        app.vent.trigger 'PAGE:get', @model.get('parent_id')

@@ -6,19 +6,7 @@ App.addRegions
   footer: '#footer'
   flash:  '#flash'
 
-      
 
-_deferredPages = null
-
-deferredPages = ()->
-  if !_deferredPages
-    _deferredPages = $.Deferred (d)->
-      App.DAL.Page.get().done (data)->
-        d.resolve data
-  _deferredPages
-
-_promisePages = ()->
-  deferredPages().promise()
 
 _deferredAuth = null
 
@@ -34,43 +22,44 @@ _promiseAuth = ()->
 
 # DAL for page objects
 
-App.vent.on 'PAGE:change', ()->
-    _deferredPages = null
 
 App.getPages = ()-> 
-  _promisePages()
+  App.DAL.Page.get()
 
 App.getPage = (id, callback, bypass_cache = false) ->
-  _promiseAuth().done (data)->
-    user = new App.Models.User data if data
-    admin = user && user.get('role') == 'admin'
-    if App.Cache.api.get('Page', id) && App.Cache.enabled && !bypass_cache
-      callback App.Cache.api.get('Page', id), admin
-    else
-      App.DAL.Page.getById(id).done (data) ->
-        App.Cache.api.set('Page', id,data)
-        callback data, admin
+  cache = App.Cache.api unless bypass_cache
+  auth_promise = App.DAL.Auth.get() 
+  page_promise = App.DAL.Page.getById(id, cache)
+  $.when(auth_promise, page_promise).done (auth_data, page_data) ->
+    callback page_data, auth_data?.role == 'admin'
 
-App.deletePage = (id, callback) ->
-  App.DAL.Page.delete id, callback
+App.vent.on 'PAGE:delete', (id)->
+  App.DAL.Page.delete id, $("meta[name=csrf-token]").attr("content"), (data)-> 
+    App.vent.trigger 'PAGE:change'
+    App.vent.trigger 'PAGE:get', data.id
+    App.vent.trigger 'FLASH:show', 'Page has been deleted'
 
-App.savePage = (page, callback) ->
-  App.DAL.Page.save page, callback
+App.vent.on 'PAGE:save', (model)->
+  App.DAL.Page.save model, $("meta[name=csrf-token]").attr("content"), (data) ->
+    App.vent.trigger 'CACHE:set', 'Page', data.id, data
+    App.vent.trigger 'PAGE:change'
+    App.vent.trigger 'PAGE:get', data.id
+    App.vent.trigger 'FLASH:show', 'Page has been saved'
+
+App.vent.on 'PAGE:get', (id)->
+  App.getPage id, (data, admin = false)->
+    App.vent.trigger 'PAGE:show', data, admin
 
 App.vent.on 'ROUTER:navigate', (route)->
   App.router.navigate route
 
 App.vent.on 'PAGE:change', ()->
-  _promiseAuth().done (data)->
-    user = new App.Models.User data if data
-    App.vent.trigger 'HEADER:list', user
+  $.when(App.DAL.Auth.get(), App.DAL.Page.get(true)).done (auth_data, pages_data)->
+    user = new App.Models.User auth_data if auth_data
+    App.vent.trigger 'HEADER:list', user, pages_data
 
 App.on 'start', ->
 
-  App.router = new App.Routers.AppRouter
-    promisePages: _promisePages 
+  App.router = new App.Routers.AppRouter()
   Backbone.history.start {pushState: true} 
-  _promiseAuth().done (data)->
-    user = new App.Models.User data if data
-    App.vent.trigger 'HEADER:list', user
-
+  App.vent.trigger 'PAGE:change'

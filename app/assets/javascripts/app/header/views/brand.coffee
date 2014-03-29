@@ -6,5 +6,5 @@ App.module "Header.Views", (views, app) ->
       model: @model.toJSON()
     events:
       'click a.navbar-brand': ->
-        app.vent.trigger 'PAGE:show', @model.get('id')
+        app.vent.trigger 'PAGE:get', @model.get('id')
         false

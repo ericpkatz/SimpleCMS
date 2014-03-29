@@ -4,7 +4,7 @@ App.module "Header.Views", (views, app) ->
     tagName: 'li'
     events:
       'click a': ->
-        app.vent.trigger 'PAGE:show', @model.get('id')
+        app.vent.trigger 'PAGE:get', @model.get('id')
         false
 
   views.List = Backbone.Marionette.CompositeView.extend

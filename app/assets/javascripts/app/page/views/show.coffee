@@ -1,5 +1,7 @@
 App.module 'Page.Views', (views, app)->
   views.Show = Marionette.ItemView.extend
+    ui :
+      deleteModal: '#myModal'
     template: JST['page/show']
     events:
       'click .edit': ->
@@ -7,4 +9,7 @@ App.module 'Page.Views', (views, app)->
       'click .insert': ->
         app.vent.trigger 'PAGE:insert', @model.get('id')
       'click .delete': ->
-        app.vent.trigger 'PAGE:delete', @model.get('id')
+         @ui.deleteModal.promise().done ()=>
+           $('.modal-backdrop').remove()
+           $('body').removeClass('.modal-open')
+           app.vent.trigger 'PAGE:delete', @model.get('id')

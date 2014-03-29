@@ -1,8 +1,21 @@
--if @admin
+.modal.fade#myModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4.modal-title Are you sure? 
+      .modal-body
+        %p that you want to delete this page?
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Cancel 
+        %button.btn.btn-primary.delete{"data-dismiss" => "modal", type: "button"} Yes, Delete 
+
+- if @admin
   .btn-group.pad-vertical
     .btn.btn-default.edit Edit
     .btn.btn-default.insert Insert
-    .btn.btn-default.delete Delete
+    .btn.btn-default{"data-target" => "#myModal", "data-toggle" => "modal"}
+      Delete
 
 .jumbotron
   %h2 =@title 
