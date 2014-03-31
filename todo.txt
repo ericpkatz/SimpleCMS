@@ -1,5 +1,14 @@
-Inserting - page is not highlighted
-Clean up auth.hamlc - figure out strategy for authenticity_token
+Routing for pages should be the page path
+Animate flash
+Validation for inserting and editing pages
+Consolidate editing and inserting
+
+Admin mode for user management?
+
+Parent Pages
+Content
+
+Updating of content on server updates user's version of page
 
 Strategy for clearing cache when a callback updates another recordO
   need to pass back to the browser that a record has changed

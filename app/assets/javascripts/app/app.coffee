@@ -8,21 +8,6 @@ App.addRegions
 
 
 
-_deferredAuth = null
-
-deferredAuth = ()->
-  if !_deferredAuth
-    _deferredAuth = $.Deferred (d)->
-      App.DAL.Auth.get().done (data)->
-        d.resolve data
-  _deferredAuth
-
-_promiseAuth = ()->
-  deferredAuth().promise()
-
-# DAL for page objects
-
-
 App.getPages = ()-> 
   App.DAL.Page.get()
 

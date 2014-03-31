@@ -50,7 +50,9 @@ group :test, :development do
   gem "selenium-webdriver"
   gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'jasmine'
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
+  gem "guard-jasmine"
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

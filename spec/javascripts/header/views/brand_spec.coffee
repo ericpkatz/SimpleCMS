@@ -17,6 +17,6 @@ describe 'App.Header.Views.Brand', ->
       spyOn App.vent, 'trigger'
       @view.$('a.navbar-brand').click()
 
-    it 'Fires the PAGE:show event with the model\'s id', ()->
-      expect(App.vent.trigger).toHaveBeenCalledWith 'PAGE:show', @model.get('id')
+    it 'Fires the PAGE:get event with the model\'s id', ()->
+      expect(App.vent.trigger).toHaveBeenCalledWith 'PAGE:get', @model.get('id')
       

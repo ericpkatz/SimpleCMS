@@ -18,4 +18,4 @@ describe 'App.Header.Views.List', ->
         @view.children.first().$('a').click()
 
       it "Expect PAGE:show event to be fired with the id of the page link's model id", ->
-        expect(window.App.vent.trigger).toHaveBeenCalledWith('PAGE:show', @collection.first().get('id'))
+        expect(window.App.vent.trigger).toHaveBeenCalledWith('PAGE:get', @collection.first().get('id'))
