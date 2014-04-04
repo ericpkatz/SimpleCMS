@@ -32,8 +32,13 @@ App.vent.on 'PAGE:save', (model)->
     App.vent.trigger 'FLASH:show', 'Page has been saved'
 
 App.vent.on 'PAGE:get', (id)->
-  App.getPage id, (data, admin = false)->
-    App.vent.trigger 'PAGE:show', data, admin
+  if !id
+    $.when(App.DAL.Auth.get(), App.DAL.Page.get(true)).done (auth_data, pages_data)->
+      page_data = _.find(pages_data, (page)->page.is_home_page)
+      App.vent.trigger 'PAGE:show', page_data, auth_data?.role == 'admin' 
+  else
+    App.getPage id, (data, admin = false)->
+      App.vent.trigger 'PAGE:show', data, admin
 
 App.vent.on 'ROUTER:navigate', (route)->
   App.router.navigate route
