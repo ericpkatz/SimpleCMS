@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.order(is_home_page: :desc).select(:id, :title, :is_home_page)
+    @pages = Page.order("is_home_page desc, priority, title").select(:id, :title, :is_home_page, :priority)
     render json: @pages
   end
 

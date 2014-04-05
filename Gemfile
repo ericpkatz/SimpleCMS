@@ -53,6 +53,7 @@ group :test, :development do
   gem 'jasmine'
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
   gem "guard-jasmine"
+  gem "faker"
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
