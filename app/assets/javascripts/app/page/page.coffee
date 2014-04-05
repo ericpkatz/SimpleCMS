@@ -16,13 +16,13 @@ App.module 'Controllers', (controllers, app) ->
       app.getPage( 
         id 
         (data)->
-          app.main.show new app.Page.Views.Edit
+          app.main.show new app.Page.Views.Form
             model: new app.Models.Page data
         true
       )
 
     insert: (id)->
-      app.main.show new app.Page.Views.Insert
+      app.main.show new app.Page.Views.Form
         model: new app.Models.Page
           parent_id: id
 

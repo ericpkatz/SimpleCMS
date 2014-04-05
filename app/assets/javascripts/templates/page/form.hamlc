@@ -9,8 +9,14 @@
     .form-group
       %label{for: "page_body"} Body
       %input#page_body.form-control{placeholder: "Body", name: "page[body]", value: @body}
+    .form-group
+      %label{for: "page_priority"} Priority 
+      %input#page_priority.form-control{placeholder: "Priority", name: "page[priority]", value: @priority}
     .checkbox
       %label
-        %input#page_is_home_page{type: 'checkbox', name: "page[is_home_page]", checked: @is_home_page}
+        -if @is_home_page
+          %input#page_is_home_page{type: 'checkbox', name: "page[is_home_page]", checked:'checked'}
+        -else
+          %input#page_is_home_page{type: 'checkbox', name: "page[is_home_page]"}
         Home Page
     %button.btn.btn-default{type: "submit"} Save

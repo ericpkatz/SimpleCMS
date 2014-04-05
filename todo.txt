@@ -1,8 +1,7 @@
-Set a priority for pages
+Cancel link should go back to actual page - bug
 Routing for pages should be the page path
 Animate flash
 Validation for inserting and editing pages
-Consolidate editing and inserting
 
 Admin mode for user management?
 
@@ -17,8 +16,6 @@ Strategy for clearing cache when a callback updates another recordO
 
 ViewModel for inserting a page - or app.CurrentPage?
 Hide Header and Footer
-Testing? - how to test various controllers?
-Add free semaphore account
 Error handling for bad page url's
 
 
