@@ -1,4 +1,20 @@
+Jasmine - give called with some flexibility?
+
+Form is an ItemView
+
+FormLayout
+  #Validation
+  #Form
+
+or
+Form
+ #Validation
+ #_form
+
 Cancel link should go back to actual page - bug
+Media queries for bootstrap
+Slider for priority
+Add a parent_id to datamodel
 Routing for pages should be the page path
 Animate flash
 Validation for inserting and editing pages

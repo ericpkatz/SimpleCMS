@@ -26,4 +26,5 @@
 //= require_tree ./app/footer
 //= require_tree ./app/page
 //= require_tree ./app/flash
+//= require_tree ./app/validation
 //= require_tree ./app/cache

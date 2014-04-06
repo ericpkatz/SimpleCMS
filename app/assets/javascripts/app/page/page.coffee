@@ -16,14 +16,14 @@ App.module 'Controllers', (controllers, app) ->
       app.getPage( 
         id 
         (data)->
-          app.main.show new app.Page.Views.Form
-            model: new app.Models.Page data
+          app.main.show new app.Page.Views.FormLayout
+            page: new app.Models.Page data
         true
       )
 
     insert: (id)->
-      app.main.show new app.Page.Views.Form
-        model: new app.Models.Page
+      app.main.show new app.Page.Views.FormLayout
+        page: new app.Models.Page
           parent_id: id
 
       
@@ -37,5 +37,4 @@ App.module 'Controllers', (controllers, app) ->
   app.vent.on 'PAGE:insert', (id)->
     controllers.Page.insert(id) 
     app.vent.trigger 'ROUTER:navigate',"pages/#{id}/new"
-
 
