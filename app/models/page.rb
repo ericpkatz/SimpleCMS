@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+  has_many :contents
   before_destroy do
     if Page.all.size == 1
       false

@@ -16,4 +16,13 @@ FactoryGirl.define do
   trait :high_priority do
     priority 1
   end
+
+  trait :with_contents do
+    ignore do
+      content_count 3
+    end
+    after(:create) do |page, evaluator|
+      FactoryGirl.create_list :content, evaluator.content_count, page: page
+    end
+  end
 end
