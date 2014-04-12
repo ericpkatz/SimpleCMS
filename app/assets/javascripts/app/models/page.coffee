@@ -19,3 +19,5 @@ App.module 'Models', (models, app)->
         errors
     isHomePage: ()->
       @get('is_home_page')
+    contents: ()->
+      new App.Collections.Contents @get('contents')

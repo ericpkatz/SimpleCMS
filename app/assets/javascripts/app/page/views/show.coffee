@@ -1,5 +1,6 @@
 App.module 'Page.Views', (views, app)->
   views.Show = Marionette.ItemView.extend
+    initialize: (options)->
     ui :
       deleteModal: '#myModal'
     template: JST['page/show']
