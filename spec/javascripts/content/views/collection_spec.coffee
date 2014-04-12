@@ -8,10 +8,18 @@ describe 'App.Content.Views.Collection', ()->
         title: 'world'
       }
     ]
-    @view = new App.Content.Views.List
+    @admin = false
+    @data = 
       collection : @collection
+      admin: @admin
+    @view = new App.Content.Views.List @data
+    spyOn(@view, 'initialize').andCallThrough()
     @view.render()
+
   it 'Shows the collection of items', ()->
     v = @view
     @collection.each (item)->
       expect(v.$el.html()).toContain item.get('title')
+
+  it 'admin to be false', ()->
+    expect(@view.isAdmin()).toEqual false 
