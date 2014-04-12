@@ -18,6 +18,6 @@
       Delete
 
 .jumbotron
-  %h2 =@title 
+  %h2 =@model.get 'title'
   %div
-    =@body
+    =@model.get 'body'

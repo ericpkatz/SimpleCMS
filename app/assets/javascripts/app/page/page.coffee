@@ -3,9 +3,9 @@ App.module 'Controllers', (controllers, app) ->
   controllers.Page =
     show: (data, admin)->
       page = new app.Models.Page data
-      page.set('admin', admin)
       app.main.show new app.Page.Layouts.Show
         page: page
+        admin: admin
 
       if page.get('is_home_page')
         app.vent.trigger 'ROUTER:navigate', '/'

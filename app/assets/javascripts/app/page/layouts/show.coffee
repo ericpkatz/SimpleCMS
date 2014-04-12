@@ -2,6 +2,7 @@ App.module 'Page.Layouts', (Layouts, App)->
   Layouts.Show = Marionette.Layout.extend
     initialize: (options)->
       @model = options.page
+      @admin = options.admin
     regions:
       page: '#page'
       contents: '#contents'
@@ -9,6 +10,7 @@ App.module 'Page.Layouts', (Layouts, App)->
     showPage: ()->
       @page.show new App.Page.Views.Show
         model: @model
+        admin: @admin
     showContents:()->
       @contents.show new App.Content.Views.List
         collection: @model.contents()

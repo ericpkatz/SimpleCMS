@@ -1,6 +1,7 @@
 App.module 'Page.Views', (views, app)->
   views.Show = Marionette.ItemView.extend
     initialize: (options)->
+      @admin = options.admin
     ui :
       deleteModal: '#myModal'
     template: JST['page/show']
@@ -14,3 +15,6 @@ App.module 'Page.Views', (views, app)->
            $('.modal-backdrop').remove()
            $('body').removeClass('.modal-open')
            app.vent.trigger 'PAGE:delete', @model.get('id')
+    serializeData: ()->
+      model: @model
+      admin: @admin
