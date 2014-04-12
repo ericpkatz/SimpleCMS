@@ -14,6 +14,7 @@ App.module 'Page.Layouts', (Layouts, App)->
     showContents:()->
       @contents.show new App.Content.Views.List
         collection: @model.contents()
+        admin: @admin
     onRender: ()->
       @showPage()
       @showContents()

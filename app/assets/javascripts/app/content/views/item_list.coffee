@@ -1,16 +1,19 @@
 App.module 'Content.Views', (Views, App)->
-  _admin = false
   Views.Item = Marionette.ItemView.extend
     initialize: (options)->
+      @admin = options.admin
     template: JST['content/item']
+    serializeData: ()->
+      model: @model
+      admin: @admin
 
   Views.List = Marionette.CompositeView.extend
     initialize: (options)->
-      _admin = options.admin
+      @admin = options.admin
     template: JST['content/list']
     itemView: Views.Item
     itemViewContainer: 'ul'
-    isAdmin: ()->
-      _admin
-    itemViewOptions:
-      admin: _admin 
+    itemViewOptions: ()->
+      admin: @admin 
+    serializeData: ()->
+      admin: @admin

@@ -1,1 +1,2 @@
-=@title
+=@model.get 'title'
+=@admin
