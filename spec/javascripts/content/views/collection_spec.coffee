@@ -20,6 +20,3 @@ describe 'App.Content.Views.Collection', ()->
     v = @view
     @collection.each (item)->
       expect(v.$el.html()).toContain item.get('title')
-
-  it 'admin to be false', ()->
-    expect(@view.isAdmin()).toEqual false 

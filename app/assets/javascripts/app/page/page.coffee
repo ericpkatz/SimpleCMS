@@ -1,6 +1,14 @@
-App.module 'Controllers', (controllers, app) ->
+App.module 'Page', (Page, app) ->
 
-  controllers.Page =
+  class Page.Controller
+    constructor: ()->
+      app.vent.on 'PAGE:show', (data, admin)=>
+        @show(data, admin)
+      app.vent.on 'PAGE:edit', (id)=>
+        @edit(id) 
+      app.vent.on 'PAGE:insert', (id)=>
+        @insert(id) 
+
     show: (data, admin)->
       page = new app.Models.Page data
       app.main.show new app.Page.Layouts.Show
@@ -20,21 +28,14 @@ App.module 'Controllers', (controllers, app) ->
             page: new app.Models.Page data
         true
       )
+      app.vent.trigger 'ROUTER:navigate', "pages/#{id}/edit"
 
     insert: (id)->
       app.main.show new app.Page.Views.FormLayout
         page: new app.Models.Page
           parent_id: id
+      app.vent.trigger 'ROUTER:navigate',"pages/#{id}/new"
 
-      
-  app.vent.on 'PAGE:show', (data, admin)->
-    controllers.Page.show(data, admin)
 
-  app.vent.on 'PAGE:edit', (id)->
-    controllers.Page.edit(id) 
-    app.vent.trigger 'ROUTER:navigate', "pages/#{id}/edit"
-
-  app.vent.on 'PAGE:insert', (id)->
-    controllers.Page.insert(id) 
-    app.vent.trigger 'ROUTER:navigate',"pages/#{id}/new"
-
+  App.on 'start', ()->
+    new App.Page.Controller()

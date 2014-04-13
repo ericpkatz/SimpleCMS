@@ -1,15 +1,7 @@
-Jasmine - give called with some flexibility?
+Change Page Controller to be a class which can be tested... 
+Set events in constructor of controller
+Instantiate controller when app starts
 
-Form is an ItemView
-
-FormLayout
-  #Validation
-  #Form
-
-or
-Form
- #Validation
- #_form
 
 Cancel link should go back to actual page - bug
 Media queries for bootstrap
