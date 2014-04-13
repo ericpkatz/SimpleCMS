@@ -1,31 +1,32 @@
-@App.module 'Controllers', (controllers, app, marionette, backbone, jquery, _) ->
-  _deferred = null
-  deferred = ->
-    _deferred = _deferred || $.Deferred()
+App.module 'Footer', (Footer, app, marionette, backbone, jquery, _) ->
 
-  promise = ->
-    deferred().promise()
+  class Footer.Controller 
+    constructor: ()->
+      @_deferred = null
+      app.vent.on 'HEADER:list', (user, pages) =>
+        @list(pages)
 
+      app.vent.on 'PAGE:show', (model) =>
+        @highlightPage(model.id)
 
-  controllers.Footer = 
+      app.vent.on 'NAV:show', (id) =>
+        @highlightPage(id)
+
+      app.vent.on 'FOOTER:shown', () =>
+        @deferred().resolve()
+
+      app.vent.on 'PAGE:change', (model)->
+        @_deferred = null
     list: (pages)-> 
       app.footer.show new app.Footer.Views.List
         collection: new Backbone.Collection pages
     highlightPage: (id)->
-      promise().done ->
+      @promise().done ->
         app.footer.currentView.highlightPage(id)
+    deferred : ->
+      @_deferred = @_deferred || $.Deferred()
+    promise : ->
+      @deferred().promise()
 
-  app.vent.on 'HEADER:list', (user, pages) ->
-    controllers.Footer.list(pages)
-
-  app.vent.on 'PAGE:show', (model) ->
-    controllers.Footer.highlightPage(model.id)
-
-  app.vent.on 'NAV:show', (id) ->
-    controllers.Footer.highlightPage(id)
-
-  app.vent.on 'FOOTER:shown', () ->
-    deferred().resolve()
-
-  app.vent.on 'PAGE:change', (model)->
-    _deferred = null
+  App.on 'start', ()->
+    new Footer.Controller()
