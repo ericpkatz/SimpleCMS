@@ -3,7 +3,7 @@
   class Header.Controller
     constructor: ()->
       @_deferred = null
-      
+
       app.vent.on 'HEADER:list', (user, pages) =>
         @list user, pages
 

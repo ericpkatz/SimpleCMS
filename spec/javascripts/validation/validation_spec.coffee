@@ -1,9 +1,11 @@
 describe 'App.Validation', ()->
+  beforeEach ()->
+    @controller = new App.Validation.Controller()
 
   describe 'Firing the validation event',()->
     beforeEach ()->
-      App.vent.trigger 'VALIDATION:error', ['hello', 'world']
+      spyOn @controller, 'sendErrors'
+      App.vent.trigger 'VALIDATION:error', 'bizz', 'buzz'
 
-    it 'Validation errors are shown', ()->
-      console.log 'figure out how to put validation within another region'
-      # expect(1).toEqual(2)
+    it 'sendErrors', ()->
+      expect(@controller.sendErrors).toHaveBeenCalledWith 'bizz', 'buzz'
