@@ -7,6 +7,7 @@ SimpleCMS::Application.routes.draw do
   get "pages/:id/new", to: 'home#index', constraints: { format: 'html' }
 
   resources :pages
+  resources :contents
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
