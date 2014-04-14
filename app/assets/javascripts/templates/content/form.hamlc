@@ -1,0 +1,4 @@
+%input#content_title.form-control{placeholder: "Title", name: "content[title]", value: @title}
+%input#content_body.form-control{placeholder: "Body", name: "content[body]", value: @body}
+%input#content_priority.form-control{placeholder: "Priority", name: "content[priority]", value: @priority}
+%button.btn.btn-default{type: "submit"} Save

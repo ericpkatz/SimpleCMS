@@ -1,2 +1,3 @@
 =@model.get 'title'
-=@admin
+-if @admin
+  %a.edit edit

@@ -1,5 +1,10 @@
 App.module 'Content.Views', (Views, App)->
   Views.Item = Marionette.ItemView.extend
+    ui:
+      edit: '.edit'
+    events: 
+      'click .edit': ()->
+        App.vent.trigger 'CONTENT:edit', @model
     initialize: (options)->
       @admin = options.admin
     template: JST['content/item']
